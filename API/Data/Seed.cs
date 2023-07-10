@@ -1,23 +1,22 @@
 ﻿using API.Entities;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
 
 namespace API.Data
 {
     public class Seed
     {
-
         public static async Task SeedUsers(DataContext dataContext)
         {
             if (await dataContext.Users.AnyAsync()) return;
 
             var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
 
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+           // var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-            var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
+            var users = JsonConvert.DeserializeObject<List<AppUser>>(userData);
 
             foreach (var user in users)
             {
