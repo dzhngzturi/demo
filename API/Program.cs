@@ -49,7 +49,6 @@ builder.Services.AddSwaggerGen(opt =>
 
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

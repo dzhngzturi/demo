@@ -12,7 +12,6 @@ namespace API.Data
         public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
             if (await userManager.Users.AnyAsync()) return;
-
             var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
 
            // var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
@@ -33,6 +32,7 @@ namespace API.Data
 
             foreach (var user in users)
             {
+                user.Photos.First().isApproved = true;
                 user.UserName = user.UserName.ToLower();
 
                 await userManager.CreateAsync(user, "P@ssword1");

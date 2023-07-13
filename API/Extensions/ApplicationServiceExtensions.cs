@@ -16,16 +16,15 @@ namespace API.Extensions
             {
                 o.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
+            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
             services.AddScoped<LogUserActivity>();
             services.AddSignalR();
             services.AddSingleton<PresenceTracker>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddCors();
 
             return services;
